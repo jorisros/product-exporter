@@ -1,12 +1,12 @@
 {
     "name": "jorisros/library-product-exporter",
-    "description": "jorisros/product-exporter",
     "type": "library",
     "require": {
         "guzzlehttp/guzzle": "^7.9",
         "symfony/config": "^7.2"
     },
     "require-dev": {
+        "vimeo/psalm": "^6.7",
         "phpunit/phpunit": "^11.5"
     },
     "autoload": {

@@ -1,0 +1,22 @@
+{
+  "name": "Shopify connector",
+  "icon": "/icon.gif",
+  "arguments": {
+    "shopClass": "\\Bla",
+    "shopId": 100
+  },
+  "mapping": [
+    {
+      "destinationField": "product.title",
+      "sourceField": "productTitle",
+      "transformer": "\\TransForm\\Capital"
+    }
+  ],
+  "transport": {
+    "class": "\\JorisRos\\LibraryProductExporter\\Transport\\TransportGuzzle",
+    "options": {
+      "access-token": "",
+      "url": ""
+    }
+  }
+}

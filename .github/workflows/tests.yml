@@ -1,0 +1,40 @@
+name: run-tests
+run-name: Run phpunit tests of ${{ github.event.pull_request.title }}
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  run:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions:
+          - '8.2'
+          - '8.3'
+          - '8.4'
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: intl #optional
+          ini-values: "post_max_size=256M" #optional
+      - name: Check PHP Version
+        run: php -v
+      - name: Composer
+        uses: php-actions/composer@v6
+        with:
+          args: "--ignore-platform-req=php"
+      - name: Tests
+        uses: php-actions/phpunit@v3
+        with:
+          args: tests
+          php_version: ${{ matrix.php-versions }}
+          version: 8

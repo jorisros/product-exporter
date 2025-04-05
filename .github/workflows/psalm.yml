@@ -1,0 +1,32 @@
+name: Integration
+run-name: Run psalm of ${{ github.event.pull_request.title }}
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  psalm:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions:
+          - '8.2'
+          - '8.3'
+          - '8.4'
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run psalm
+        run: ./vendor/bin/psalm --output-format=github
