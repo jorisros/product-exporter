@@ -1,11 +1,7 @@
 name: Integration
 run-name: Run psalm of ${{ github.event.pull_request.title }}
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
+  push: 
 
 jobs:
   psalm:

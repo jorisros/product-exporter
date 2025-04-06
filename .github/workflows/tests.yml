@@ -1,11 +1,8 @@
 name: run-tests
 run-name: Run phpunit tests of ${{ github.event.pull_request.title }}
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
+  push:
+
 jobs:
   run:
     runs-on: ${{ matrix.operating-system }}
@@ -30,8 +27,6 @@ jobs:
         run: php -v
       - name: Composer
         uses: php-actions/composer@v6
-        with:
-          args: "--ignore-platform-req=php"
       - name: Tests
         uses: php-actions/phpunit@v3
         with:
