@@ -11,6 +11,7 @@ class Shopify implements TransportInterface
     {
     }
 
+    #[\Override]
     public function transfer(array $data): void
     {
         // TODO: Implement transfer() method.

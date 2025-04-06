@@ -26,6 +26,7 @@ class ReaderJson implements ReaderInterface
         $this->data = json_decode($jsonContent, true);
     }
 
+    #[\Override]
     public function getArray(): array
     {
         return $this->processor->processConfiguration($this->config, [$this->data]);

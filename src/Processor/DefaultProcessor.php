@@ -11,10 +11,11 @@ class DefaultProcessor implements ProcessorInterface
 
     }
 
+    #[\Override]
     public function process(array $fields): array
     {
         $this->getTransforms();
-        var_dump($this->configuration);
+        //var_dump($this->configuration);
         return $fields;
     }
 
@@ -25,15 +26,6 @@ class DefaultProcessor implements ProcessorInterface
 
     private function getTransforms(): array
     {
-        var_dump(get_declared_classes());
-        die('stop');
-        $transformers = array_filter(
-            get_declared_classes(),
-            function ($className) {
-                return in_array('TransformInterface', class_implements($className));
-            }
-        );
-        var_dump($transformers);
         return [
 
         ];
