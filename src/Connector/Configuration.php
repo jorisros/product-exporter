@@ -14,6 +14,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode = $treeBuilder->getRootNode();
 
+        // @codingStandardsIgnoreStart
         $rootNode
             ->children()
                 ->scalarNode('name')->isRequired()->end()
@@ -42,9 +43,8 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end();
+        // @codingStandardsIgnoreEnd
 
         return $treeBuilder;
     }
-
 }
-

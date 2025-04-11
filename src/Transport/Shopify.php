@@ -6,7 +6,6 @@ use JorisRos\LibraryProductExporter\Transport\TransportInterface;
 
 class Shopify implements TransportInterface
 {
-
     public function __construct(private array $configuration)
     {
     }
