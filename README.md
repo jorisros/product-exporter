@@ -80,6 +80,16 @@ array(1) {
 }
 ```
 
+## Transformers
+The library has the following transformer 
+### Money to float
+To convert the prices to a float for example ``€ 12,30`` to ``12.30``.<br>
+Add the class ``JorisRos\LibraryProductExporter\Transform\MoneyToFloat`` to the mapper.
+### Capital
+To convert the string to for example ``t-shirt`` to ``T-shirt``.<br>
+Add the class ``JorisRos\LibraryProductExporter\Transform\Capital`` to the mapper.
+
+
 ## Tests
 ```bash
 composer install
