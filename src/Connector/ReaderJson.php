@@ -8,7 +8,9 @@ class ReaderJson implements ReaderInterface
 {
     private Processor $processor;
     private array $data;
-    public function __construct(private Configuration $config) {
+
+    public function __construct(private Configuration $config)
+    {
         $this->processor = new Processor();
     }
 

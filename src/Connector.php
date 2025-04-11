@@ -7,7 +7,6 @@ use JorisRos\LibraryProductExporter\Processor\DefaultProcessor;
 use JorisRos\LibraryProductExporter\Processor\ProcessorInterface;
 use JorisRos\LibraryProductExporter\Transport\TransportInterface;
 
-
 class Connector
 {
     private array $configuration;
@@ -21,7 +20,7 @@ class Connector
     /**
      * Process an array with product data and pull that trough the processor
      *
-     * @param array $productData
+     * @param  array $productData
      * @return array
      * @throws \Exception
      */
@@ -37,7 +36,7 @@ class Connector
     /**
      * Transport the product data to destination
      *
-     * @param array $data
+     * @param  array $data
      * @return void
      * @throws \Exception
      */

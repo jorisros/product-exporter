@@ -5,6 +5,8 @@ namespace JorisRos\LibraryProductExporter\Transform;
 class DefaultTransform implements TransformInterface
 {
     private array|string|int|float|bool $value;
+
+    #[\Override]
     public function transform($value): void
     {
         switch ($value) {
@@ -20,6 +22,7 @@ class DefaultTransform implements TransformInterface
         }
     }
 
+    #[\Override]
     public function getValue(): array|string|bool|int|float
     {
         return $this->value;

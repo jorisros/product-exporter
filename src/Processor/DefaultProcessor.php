@@ -12,7 +12,8 @@ class DefaultProcessor implements ProcessorInterface
     public function __construct(
         readonly private array $configuration,
         readonly private array $transformers
-    ) {}
+    ) {
+    }
 
     #[\Override]
     public function process(array $fields): array

@@ -1,6 +1,7 @@
 <?php
 
 namespace JorisRos\LibraryProductExporter\Processor;
+
 use JorisRos\LibraryProductExporter\Connector\Configuration;
 
 interface ProcessorInterface

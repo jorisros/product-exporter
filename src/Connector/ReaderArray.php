@@ -8,7 +8,9 @@ class ReaderArray implements ReaderInterface
 {
     private Processor $processor;
     private array $data;
-    public function __construct(private Configuration $config) {
+
+    public function __construct(private Configuration $config)
+    {
         $this->processor = new Processor();
     }
 
@@ -16,6 +18,8 @@ class ReaderArray implements ReaderInterface
     {
         $this->data = $array;
     }
+
+    #[\Override]
     public function getArray(): array
     {
         return $this->processor->processConfiguration($this->config, [$this->data]);
