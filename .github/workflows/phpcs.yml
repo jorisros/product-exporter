@@ -1,0 +1,26 @@
+name: PHP CodeSniffer
+
+on:
+  push:
+
+jobs:
+  phpcs:
+    name: PHP CodeSniffer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'  # Specify the PHP version you need
+          extensions: mbstring, intl  # Add any extensions you need
+          tools: cs2pr  # Optional: for converting CodeSniffer output to GitHub PR comments
+
+      - name: Install PHP CodeSniffer
+        run: composer global require "squizlabs/php_codesniffer=*"
+
+      - name: Run PHP CodeSniffer
+        run: phpcs --standard=PSR12 src/  # Adjust the standard and path as needed
