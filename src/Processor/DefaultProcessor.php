@@ -3,10 +3,12 @@
 namespace JorisRos\LibraryProductExporter\Processor;
 
 use JorisRos\LibraryProductExporter\Connector\Configuration;
+use JorisRos\LibraryProductExporter\Transform\TransformInterface;
 
 class DefaultProcessor implements ProcessorInterface
 {
-    public function __construct(private array $configuration)
+    private array $result = [];
+    public function __construct(readonly private array $configuration, readonly private array $transformers)
     {
 
     }
@@ -14,11 +16,16 @@ class DefaultProcessor implements ProcessorInterface
     #[\Override]
     public function process(array $fields): array
     {
-        $this->getTransforms();
+        $transformers = $this->getTransforms();
         //var_dump($this->configuration);
+        $this->addValueToResult('field', strin);
         return $fields;
     }
 
+    private function addValueToResult(TransformInterface $transform, string $field): void
+    {
+
+    }
     private function getMapping()
     {
 
@@ -26,8 +33,14 @@ class DefaultProcessor implements ProcessorInterface
 
     private function getTransforms(): array
     {
-        return [
+        $acceptedTransformers = [];
 
-        ];
+        foreach ($this->transformers as $transformer) {
+            if ($transformer instanceof TransformInterface) {
+                $acceptedTransformers[] = $transformer;
+            }
+        }
+
+        return $acceptedTransformers;
     }
 }
