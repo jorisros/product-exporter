@@ -36,7 +36,8 @@ class DefaultProcessor implements ProcessorInterface
 
     private function addValueToResult(TransformInterface $transform, string $field): void
     {
-        $this->result[$field] = $transform->getValue();
+        $array = $this->stringToMultiArrayWithValue($field, $transform->getValue());
+        $this->result = array_merge_recursive($this->result, $array);
     }
 
     private function getTransforms(): array
@@ -50,5 +51,22 @@ class DefaultProcessor implements ProcessorInterface
         }
 
         return $acceptedTransformers;
+    }
+
+    private function stringToMultiArrayWithValue($string, $value): array
+    {
+        $levels = explode('.', $string);
+        $result = [];
+        $current = &$result;
+
+        foreach ($levels as $level) {
+            $current[$level] = [];
+            $current = &$current[$level];
+        }
+
+        // Add the value to the deepest level
+        $current = $value;
+
+        return $result;
     }
 }
