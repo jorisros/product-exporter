@@ -22,7 +22,7 @@ $reader->read(file_get_contents("file.json"));
 $connector = new \JorisRos\LibraryProductExporter\Connector(
     $reader,
     new JorisRos\LibraryProductExporter\Processor\DefaultProcessor([
-            'name' => 'Shopify connector',
+            'name' => 'Generic product connector',
             'icon' => '/icon.gif',
             'arguments' => [
                 'shopClass' => '\\Bla',
