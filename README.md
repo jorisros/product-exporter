@@ -21,13 +21,34 @@ $reader->read(file_get_contents("file.json"));
 
 $connector = new \JorisRos\LibraryProductExporter\Connector(
     $reader,
-    new JorisRos\LibraryProductExporter\Processor\DefaultProcessor(
-        $reader->getArray(),
+    new JorisRos\LibraryProductExporter\Processor\DefaultProcessor([
+            'name' => 'Shopify connector',
+            'icon' => '/icon.gif',
+            'arguments' => [
+                'shopClass' => '\\Bla',
+                'shopId' => 100
+            ],
+            'mapping' => [
+                [
+                    'destinationField' => 'product.title',
+                    'sourceField' => 'productTitle',
+                    'transformer' => 'JorisRos\\LibraryProductExporter\\Transform\\Capital'
+                ]
+            ],
+            'transport' => [
+                'class' => '\\JorisRos\\LibraryProductExporter\\Transport\\TransportGuzzle',
+                'options' => [
+                    'access-token' => '',
+                    'url' => ''
+                ]
+            ]
+        ],
         [
             new \JorisRos\LibraryProductExporter\Transform\Capital(),
         ]
     )
 );
+
 $data = $connector->process([
     'productTitle' => 'Hello product',
     'sku' => '00001',
@@ -43,12 +64,20 @@ $data = $connector->process([
         ]
     ]
 ]);
-
-$connector->transport($data);
 ```
 Run that file
 ```bash
 php example.php
+```
+Where ``$data`` will be transformed as below
+```php
+array(1) {
+  ["product"]=>
+  array(1) {
+    ["title"]=>
+    string(13) "Hello product"
+  }
+}
 ```
 
 ## Tests
