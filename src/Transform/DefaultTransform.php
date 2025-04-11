@@ -7,7 +7,6 @@ class DefaultTransform implements TransformInterface
     private array|string|int|float|bool $value;
     public function transform($value): void
     {
-
         switch ($value) {
             case is_bool($value):
             case is_array($value):

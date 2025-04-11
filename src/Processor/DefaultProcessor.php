@@ -3,32 +3,40 @@
 namespace JorisRos\LibraryProductExporter\Processor;
 
 use JorisRos\LibraryProductExporter\Connector\Configuration;
+use JorisRos\LibraryProductExporter\Transform\DefaultTransform;
 use JorisRos\LibraryProductExporter\Transform\TransformInterface;
 
 class DefaultProcessor implements ProcessorInterface
 {
     private array $result = [];
-    public function __construct(readonly private array $configuration, readonly private array $transformers)
-    {
-
-    }
+    public function __construct(
+        readonly private array $configuration,
+        readonly private array $transformers
+    ) {}
 
     #[\Override]
     public function process(array $fields): array
     {
         $transformers = $this->getTransforms();
-        //var_dump($this->configuration);
-        $this->addValueToResult('field', strin);
-        return $fields;
+        foreach ($this->configuration['mapping'] as $arrMapping) {
+            $transform = new DefaultTransform();
+
+            if (!empty($arrMapping['transformer'])) {
+                if (key_exists($arrMapping['transformer'], $transformers)) {
+                    $transform = $transformers[$arrMapping['transformer']];
+                }
+            }
+
+            $transform->transform($fields[$arrMapping['sourceField']]);
+            $this->addValueToResult($transform, $arrMapping['destinationField']);
+        }
+
+        return $this->result;
     }
 
     private function addValueToResult(TransformInterface $transform, string $field): void
     {
-
-    }
-    private function getMapping()
-    {
-
+        $this->result[$field] = $transform->getValue();
     }
 
     private function getTransforms(): array
@@ -37,7 +45,7 @@ class DefaultProcessor implements ProcessorInterface
 
         foreach ($this->transformers as $transformer) {
             if ($transformer instanceof TransformInterface) {
-                $acceptedTransformers[] = $transformer;
+                $acceptedTransformers[get_class($transformer)] = $transformer;
             }
         }
 

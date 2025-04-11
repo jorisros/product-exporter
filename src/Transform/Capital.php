@@ -6,9 +6,14 @@ use JetBrains\PhpStorm\ObjectShape;
 
 class Capital implements TransformInterface
 {
+    private string $value;
     #[\Override]
-    public function transform($value)
+    public function transform($value): void
     {
-        return ucfirst($value);
+        $this->value = ucfirst((string) $value);
+    }
+    public function getValue(): array|string|int|float|bool
+    {
+        return $this->value;
     }
 }
