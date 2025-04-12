@@ -5,13 +5,15 @@ namespace JorisRos\LibraryProductExporter\Processor;
 use JorisRos\LibraryProductExporter\Connector\Configuration;
 use JorisRos\LibraryProductExporter\Transform\DefaultTransform;
 use JorisRos\LibraryProductExporter\Transform\TransformInterface;
+use JorisRos\LibraryProductExporter\Utils\ValuePlacer;
 
 class DefaultProcessor implements ProcessorInterface
 {
     private array $result = [];
     public function __construct(
         readonly private array $configuration,
-        readonly private array $transformers
+        readonly private array $transformers,
+        private ValuePlacer $valuePlacer = new ValuePlacer()
     ) {
     }
 
@@ -37,7 +39,7 @@ class DefaultProcessor implements ProcessorInterface
 
     private function addValueToResult(TransformInterface $transform, string $field): void
     {
-        $array = $this->stringToMultiArrayWithValue($field, $transform->getValue());
+        $array = $this->valuePlacer->stringToMultiArrayWithValue($field, $transform->getValue());
         $this->result = array_merge_recursive($this->result, $array);
     }
 
@@ -52,22 +54,5 @@ class DefaultProcessor implements ProcessorInterface
         }
 
         return $acceptedTransformers;
-    }
-
-    private function stringToMultiArrayWithValue($string, $value): array
-    {
-        $levels = explode('.', $string);
-        $result = [];
-        $current = &$result;
-
-        foreach ($levels as $level) {
-            $current[$level] = [];
-            $current = &$current[$level];
-        }
-
-        // Add the value to the deepest level
-        $current = $value;
-
-        return $result;
     }
 }

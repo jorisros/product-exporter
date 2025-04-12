@@ -105,7 +105,6 @@ class DefaultProcessorTest extends TestCase
                 'sourceField' => 'price',
                 'transformer' => null
             ]
-
         ]);
     }
 
