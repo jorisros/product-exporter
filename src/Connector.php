@@ -50,6 +50,7 @@ class Connector
                 throw new \Exception("Transport interface is not implemented");
             }
 
+            $transport->validate($data);
             $transport->transfer($data);
         } catch (\Exception $e) {
             throw  new \Exception($e->getMessage());
