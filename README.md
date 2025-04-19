@@ -1,5 +1,5 @@
 # Generic product exporter
-## Requements
+## Requirements
 * Minumal PHP version 8.2 
 
 ## Usage
